@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 /**
  * Created by PhpStorm.
  * User: Alex
@@ -11,7 +13,7 @@ $name = "Александр";
 $age = '32';
 echo "Меня зовут: $name <br>";
 print "Мне $age лет <br>";
-echo '“!|\\/’”\\ <br>';
+echo '"!|\\/\'"\\ <br>';
 
 /* Задание #2  */
 $picture = 80;
@@ -22,7 +24,7 @@ echo "На школьной выставке $picture рисунков. $picture
 
 
 /* Задание #3   */
-define(MYCONST,'моя константа');
+define('MYCONST','моя константа');
 if (defined('MYCONST')) {
     echo "Константа существует! <br>";
 }
