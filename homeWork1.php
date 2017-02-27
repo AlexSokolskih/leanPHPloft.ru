@@ -24,29 +24,29 @@ echo "На школьной выставке $picture рисунков. $picture
 
 
 /* Задание #3   */
-define('MYCONST','моя константа');
+define('MYCONST', 'моя константа');
 if (defined('MYCONST')) {
     echo "Константа существует! <br>";
 }
-echo MYCONST.'<br>';
-define(MYCONST,'моя константа2');
-echo MYCONST.'<br>';
+echo MYCONST . '<br>';
+define('MYCONST', 'моя константа2');
+echo MYCONST . '<br>';
 
 /* Задание #4   */
-$age = rand(1,100);
+$age = rand(1, 100);
 echo "вам $age лет <br>";
-if (($age>=18) and ($age<=65)) {
+if (($age >= 18) and ($age <= 65)) {
     echo "вам еще работать и работать <br>";
-}elseif ($age>65){
-        echo "вам пора на пенсию <br>";
-    }elseif ((1<=$age) and ($age<=17)){
-           echo "Вам еще рано работать <br>";
-        }else{
-            echo "неизвестный возраст <br>";
-        }
+} elseif ($age > 65) {
+    echo "вам пора на пенсию <br>";
+} elseif ((1 <= $age) and ($age <= 17)) {
+    echo "Вам еще рано работать <br>";
+} else {
+    echo "неизвестный возраст <br>";
+}
 
 /* Задание #5   */
-$bmw['model'] =  "X5";
+$bmw['model'] = "X5";
 $bmw['speed'] = 120;
 $bmw['doors'] = 5;
 $bmw['year'] = "2015";
@@ -60,8 +60,8 @@ $opel = [
     'model' => "astra",
     'speed' => 160,
     'doors' => 3,
-    'year' =>"2014",
-    ];
+    'year' => "2014",
+];
 
 $auto['bmw'] = $bmw;
 $auto['toyota'] = $toyota;
@@ -69,25 +69,28 @@ $auto['opel'] = $opel;
 
 foreach ($auto as $key => $value) {
     echo "CAR $key <br>";
-    echo  $value['model']." ";
-    echo  $value['speed']." ";
-    echo  $value['doors']." ";
-    echo  $value['year']."<br>";
+    echo $value['model'] . " ";
+    echo $value['speed'] . " ";
+    echo $value['doors'] . " ";
+    echo $value['year'] . "<br>";
 }
 
 /* Задание # 6  */
 echo '<table style="border: dotted 2px black">';
-echo '<th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>';
-for ($i = 1; $i <=  10; $i++) {
-    echo "<tr> <td>$i</td>";
+for ($i = 1; $i <= 10; $i++) {
+    echo "<tr> ";
     for ($j = 1; $j <= 10; $j++) {
-        $amount = $i*$j;
-        if (($i % 2 == 0) and ($j % 2 == 0)){
-            $amount = "(".$amount.")";
-        } elseif (($i % 2 != 0) and ($j % 2 != 0)){
-                $amount = "[".$amount."]";
+        if ($i == 1) {
+            echo '<th>' . $j . '</th>';
+        } else {
+            $amount = $i * $j;
+            if (($i % 2 == 0) and ($j % 2 == 0)) {
+                $amount = "(" . $amount . ")";
+            } elseif (($i % 2 != 0) and ($j % 2 != 0)) {
+                $amount = "[" . $amount . "]";
             }
-        echo '<td>'.$amount .'</td>';
+            echo '<td>' . $amount . '</td>';
+        }
 
     }
     echo "</tr>";
@@ -95,20 +98,20 @@ for ($i = 1; $i <=  10; $i++) {
 echo "</table>";
 
 $str = 'электровоз чайник триста крокодил';
-echo $str.'<br>';
-$myarray = explode(' ',$str);
+echo $str . '<br>';
+$myarray = explode(' ', $str);
 print_r($myarray);
 echo '<br>';
-$i=0;
-while ($i< count($myarray)) {
+$i = 0;
+while ($i < count($myarray)) {
 
-    $arrayReverse[]=$myarray[count($myarray)-$i-1];
+    $arrayReverse[] = $myarray[count($myarray) - $i - 1];
     $i++;
 }
 var_dump($arrayReverse);
 echo '<br>';
 
-$newString = implode(",",$arrayReverse);
+$newString = implode(",", $arrayReverse);
 echo $newString;
 
 
