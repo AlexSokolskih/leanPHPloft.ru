@@ -46,6 +46,27 @@ if (($age >= 18) and ($age <= 65)) {
 }
 
 /* Задание #5   */
+
+$day = rand(1, 10);
+echo 'День №' . $day . '<br>';
+switch ($day) {
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+        echo 'Это рабочий день <br>';
+        break;
+    case 6:
+    case 7:
+        echo 'Это   выходной   день <br>';
+        break;
+    default:
+        echo 'Неизвестный   день <br>';
+}
+
+
+/* Задание #6   */
 $bmw['model'] = "X5";
 $bmw['speed'] = 120;
 $bmw['doors'] = 5;
@@ -75,7 +96,7 @@ foreach ($auto as $key => $value) {
     echo $value['year'] . "<br>";
 }
 
-/* Задание # 6  */
+/* Задание # 7  */
 echo '<table style="border: dotted 2px black">';
 for ($i = 1; $i <= 10; $i++) {
     echo "<tr> ";
@@ -97,6 +118,7 @@ for ($i = 1; $i <= 10; $i++) {
 }
 echo "</table>";
 
+/* Задание #8   */
 $str = 'электровоз чайник триста крокодил';
 echo $str . '<br>';
 $myarray = explode(' ', $str);
