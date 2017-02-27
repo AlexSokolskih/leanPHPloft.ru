@@ -46,7 +46,7 @@ if (($age>=18) and ($age<=65)) {
         }
 
 /* Задание #5   */
-$bmw['model'] = "X5";
+$bmw['model'] =  "X5";
 $bmw['speed'] = 120;
 $bmw['doors'] = 5;
 $bmw['year'] = "2015";
