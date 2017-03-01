@@ -116,11 +116,11 @@ function mathOperationPlus($operand)
         echo '<p> ошибка в функции mathOperation2 неправильный первый аргумент </p>';
         return;
     }
-    for ($i = 1; $i < func_num_args(); $i++){
-        $arguments[]=func_get_arg($i);
+    for ($i = 1; $i < func_num_args(); $i++) {
+        $arguments[] = func_get_arg($i);
     }
     echo '<p>Результат работы функции mathOperation2</p>';
-    mathOperation($arguments,$operand);
+    mathOperation($arguments, $operand);
 }
 
 mathOperationPlus('+', 2, 5, 10);
