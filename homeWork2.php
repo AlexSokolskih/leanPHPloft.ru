@@ -124,3 +124,65 @@ function mathOperationPlus($operand)
 }
 
 mathOperationPlus('+', 2, 5, 10);
+
+/*
+Задание #4
+
+Функция должна принимать два параметра – целые числа.
+Если в функцию передали 2 целых числа, то функция должна отобразить таблицу умножения размером со значения параметров, переданных в функцию. (Например если передано 8 и 8, то нарисовать от 1х1 до 8х8). Таблица должна быть выполнена с использованием тега <table>
+ В остальных случаях выдавать корректную ошибку.
+*/
+
+function showTableMultiplication($param1, $param2)
+{
+    if (!(is_int($param1) and is_int($param2))) {
+        throw new Exception('ошибка параметр не целое число');
+        return;
+    }
+    echo '<table style="border: dotted 2px black">';
+    for ($i = 1; $i <= $param1; $i++) {
+        echo "<tr> ";
+        for ($j = 1; $j <= $param2; $j++) {
+            if ($i == 1) {
+                echo '<th>' . $j . '</th>';
+            } else {
+                $amount = $i * $j;
+                echo '<td>' . $amount . '</td>';
+            }
+        }
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+
+showTableMultiplication(10, 20);
+
+/*Задание #5
+
+Написать две функции.
+Функция №1 принимает 1 строковый параметр и возвращает true, если строка является палиндромом*, false в противном случае. Пробелы и регистр не должны учитываться.
+Функция №2 выводит сообщение в котором на русском языке оговаривается результат из функции №1
+* Палиндром – строка, одинаково читающаяся в обоих направлениях.*/
+
+function mb_strrev($str)
+{
+    $reverseString = '';
+    for ($i = 0; $i < mb_strlen($str); $i++) {
+        $reverseString .= $str[mb_strlen($str) - $i - 1];
+    }
+    return $reverseString;
+}
+
+function is_polindrom($strLine)
+{
+    $strReverse = mb_strrev($strLine);
+    echo $strReverse;
+    if (strcasecmp($strLine, $strReverse) == 0) {
+        return true;
+    } else {
+        echo 'false';
+        return false;
+    }
+}
+
+echo is_polindrom('йцуккуцй');
