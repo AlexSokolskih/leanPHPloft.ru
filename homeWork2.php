@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -173,16 +173,37 @@ function mb_strrev($str)
     return $reverseString;
 }
 
+function mb_strcasecmp($str1, $str2)
+{
+    if (mb_strlen($str1) != mb_strlen($str2)) {
+        return false;
+    }
+    for ($i = 0; $i < mb_strlen($str1); $i++) {
+        if (str1[$i] != $str2[$i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function is_polindrom($strLine)
 {
     $strReverse = mb_strrev($strLine);
-    echo $strReverse;
-    if (strcasecmp($strLine, $strReverse) == 0) {
+    if (mb_strcasecmp($strLine, $strReverse) == 0) {
         return true;
     } else {
-        echo 'false';
         return false;
     }
 }
 
-echo is_polindrom('йцуккуцй');
+function speakOnRussian($flag)
+{
+    if ($flag == true) {
+        echo '<p> Строка является полиномом </p>';
+    } else {
+        echo '<p> Строка не является полиномом </p>';
+    }
+
+}
+
+echo is_polindrom('фвфывфывфыв');
