@@ -11,6 +11,8 @@ error_reporting(E_ALL);
 
 
 /*  задание №1*/
+
+//
 $animals = [
     1 => 'корова',
     2 => 'коза',
@@ -20,20 +22,22 @@ $animals = [
 function printParagrah($arrayString, $flag = false)
 {
     $resultString = "";
-    foreach ($arrayString as $key => $value) {
+
+    foreach ($arrayString as $value) {
         if ($flag) {
-            $resultString .= '<p>' . $value . '</p>';
+            $resultString .= $value . ' ';
         } else {
             echo '<p>' . $value . '</p>';
         }
     }
+
     if ($flag) {
         return $resultString;
     }
 }
 
 printParagrah($animals);
-printParagrah($animals, true);
+echo printParagrah($animals, true);
 
 
 /*  задание №2*/
@@ -45,20 +49,24 @@ printParagrah($animals, true);
 Функция должна обрабатывать любой ввод, в том числе некорректный и выдавать сообщения об этом
 */
 
-$operands = [
-    0 => 10,
-    1 => 2,
-    2 => 5,
-];
+$operands = [10, 2, 5];
 
 
 function applyOperation($arrayOperands, $functionForApply)
 {
+
+    if (!is_array($arrayOperands)) {
+        echo '<p>ошибка неправильный аргумент должен быть массив:</p>';
+        return false;
+    }
+
     $result = 0;
     foreach ($arrayOperands as $key => $item) {
         if (!is_numeric($item)) {
             echo '<p>ошибка неправильный аргумент в массиве чисел:' . $item . '</p>';
+            return false;
         }
+
         if ($key == 0) {
             $result = $item;
         } else {
@@ -90,6 +98,10 @@ function mathOperation($arrayOperands, $operation)
             break;
         case '/':
             echo(applyOperation($arrayOperands, function ($arg1, $arg2) {
+                if ($arg2 == 0) {
+                    echo '<p> ошибка, нельзя делить на ноль!</p>';
+                    return false;
+                }
                 return ($arg1 / $arg2);
             }));
             break;
@@ -135,27 +147,31 @@ mathOperationPlus('+', 2, 5, 10);
 
 function showTableMultiplication($param1, $param2)
 {
-    if (!(is_int($param1) and is_int($param2))) {
-        throw new Exception('ошибка параметр не целое число');
-        return;
-    }
-    echo '<table style="border: dotted 2px black">';
-    for ($i = 1; $i <= $param1; $i++) {
-        echo "<tr> ";
-        for ($j = 1; $j <= $param2; $j++) {
-            if ($i == 1) {
-                echo '<th>' . $j . '</th>';
-            } else {
-                $amount = $i * $j;
-                echo '<td>' . $amount . '</td>';
-            }
+    try {
+        if (!(is_int($param1) and is_int($param2))) {
+            throw new Exception('ошибка параметр не целое число');
+            return;
         }
-        echo "</tr>";
+        echo '<table style="border: dotted 2px black">';
+        for ($i = 1; $i <= $param1; $i++) {
+            echo "<tr> ";
+            for ($j = 1; $j <= $param2; $j++) {
+                if ($i == 1) {
+                    echo '<th>' . $j . '</th>';
+                } else {
+                    $amount = $i * $j;
+                    echo '<td>' . $amount . '</td>';
+                }
+            }
+            echo "</tr>";
+        }
+        echo "</table>";
+    } catch (Exception $e) {
+        echo "Во время работы произошла ошибка подробнее: " . $e->getMessage() . '<br>';
     }
-    echo "</table>";
 }
 
-showTableMultiplication(10, 20);
+showTableMultiplication(10.12, 20);
 
 /*Задание #5
 
@@ -168,28 +184,16 @@ function mb_strrev($str)
 {
     $reverseString = '';
     for ($i = 0; $i < mb_strlen($str); $i++) {
-        $reverseString .= $str[mb_strlen($str) - $i - 1];
+        $reverseString .= mb_substr($str, mb_strlen($str) - $i - 1, 1);
     }
     return $reverseString;
 }
 
-function mb_strcasecmp($str1, $str2)
-{
-    if (mb_strlen($str1) != mb_strlen($str2)) {
-        return false;
-    }
-    for ($i = 0; $i < mb_strlen($str1); $i++) {
-        if (str1[$i] != $str2[$i]) {
-            return false;
-        }
-    }
-    return true;
-}
 
 function is_polindrom($strLine)
 {
     $strReverse = mb_strrev($strLine);
-    if (mb_strcasecmp($strLine, $strReverse) == 0) {
+    if ($strLine === $strReverse) {
         return true;
     } else {
         return false;
@@ -199,11 +203,79 @@ function is_polindrom($strLine)
 function speakOnRussian($flag)
 {
     if ($flag == true) {
-        echo '<p> Строка является полиномом </p>';
+        echo '<p> Строка является полиндромом </p>';
     } else {
-        echo '<p> Строка не является полиномом </p>';
+        echo '<p> Строка не является полиндромом </p>';
     }
-
 }
 
-echo is_polindrom('фвфывфывфыв');
+
+speakOnRussian(is_polindrom('йцуккуцй'));
+
+/*Задание #7 (выполняется после вебинара “ВСТРОЕННЫЕ ВОЗМОЖНОСТИ ЯЗЫКА”)
+Дана строка: “Карл у Клары украл Кораллы”. удалить из этой строки все заглавные буквы “К”.
+Дана строка “Две бутылки лимонада”. Заменить “Две”, на “Три”. По желанию дополнить задание.
+*/
+
+$string1 = 'Карл у Клары украл Кораллы';
+$string1 = str_replace('К', '', $string1);
+echo '<br>' . $string1 . '<br>';
+
+$string2 = 'Две бутылки лимонада';
+$string2 = str_replace('Две', 'Три', $string2);
+echo $string2 . '<br>';
+
+/*Задание #8 (выполняется после вебинара “ВСТРОЕННЫЕ ВОЗМОЖНОСТИ ЯЗЫКА”)
+Напишите функцию, которая с помощью регулярных выражений, получит информацию о переданных RX пакетах из переданной строки:
+Пример строки: “RX packets:950381 errors:0 dropped:0 overruns:0 frame:0. “
+Если кол-во пакетов более 1000, то выдавать сообщение: “Сеть есть”
+Если в переданной в функцию строке есть “:)”, то нарисовать смайл в ASCII и не выдавать сообщение из пункта №3. Смайл должен храниться в отдельной функции
+*/
+function viewSmile()
+{
+    echo '<br>
+░░░░░░░░░░░░░░░░░░░░░░░░░/█\<br>                    
+░░░░░░░░░░░░░░░░░░░░░░░░ /██\<br>
+░░░░░░░░░░░░░░░░░░░░░░░ /████\<br>
+░░░░░░░░░░░░░░░░░░░░░░ /██████\<br>
+░░░░░░░░░░░░░░░░░░░░░ /████████\<br>
+░░░░░░░░░░░░░░░░░░░░ /██████████\<br>
+░░░░░░░░░░░░░░░░░░░ /████████████\<br>
+░░░█████░░░░░░░░░░ /██████████████\<br>
+░░█▒▒▒▒▒█░░░░░░░░ /████████████████\<br>
+░░█▒▒▒▒▒▒█░░░░░░███▒▒▒▒▒▒▒▒▒▒▒▒▒████<br>
+░░░█▒▒▒▒▒ █░░░░ ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██<br>
+░░░░█▒▒▒▒█ ░░░██▒▒▒▒▒██ ▒▒▒▒▒▒██ ▒▒▒▒▒██<br>
+░░░░░█▒▒▒█░░░█▒▒▒▒▒▒████▒▒▒▒████▒▒▒▒▒▒█<br>
+░░░█████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██<br>
+░░░█▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒██<br>
+░██▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒██▒▒▒▒▒▒▒▒▒▒██▒▒▒▒██<br>
+██▒▒▒███████████▒▒▒▒▒██▒▒▒▒▒▒█▒██▒▒▒▒▒██<br>
+█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒████████▒▒▒▒▒▒▒█<br>
+██▒▒▒▒▒▒▒▒▒▒▒▒▒▒█▒▒▒▒▒▒▒▒▒▒▒▒▒██▒▒▒▒▒██<br>
+░█▒▒▒███████████ ▒▒▒▒▒▒▒▒▒▒▒▒▒▒██▒▒▒██<br>
+░██▒▒▒▒▒▒▒▒▒▒████▒▒▒▒▒▒▒▒▒▒▒▒▒▒██▒██<br>
+░░████████████░░░█████████████████<br>';
+}
+
+$stringRX = 'RX packets:950381 errors:0 dropped:0 overruns:0 frame:0. :)';
+
+
+function getRX($stringRX)
+{
+    if (preg_match("/\:\)/", $stringRX)) {
+        viewSmile();
+        return;
+    }
+    if (preg_match("/^RX packets:(.*?) errors/", $stringRX, $rez)) {
+        if ($rez[1] > 1000) {
+            echo 'сеть есть!';
+        }
+    }
+}
+
+getRX($stringRX);
+
+
+
+
