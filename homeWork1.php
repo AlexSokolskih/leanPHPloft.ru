@@ -137,10 +137,3 @@ echo '<br>';
 $newString = implode(",", $arrayReverse);
 echo $newString;
 
-
-
-
-
-
-
-

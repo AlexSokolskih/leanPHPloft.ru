@@ -273,8 +273,10 @@ function getRX($stringRX)
         }
     }
 }
-
 getRX($stringRX);
+
+
+
 
 
 
