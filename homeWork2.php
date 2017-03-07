@@ -13,26 +13,21 @@ error_reporting(E_ALL);
 /*  задание №1*/
 
 //
-$animals = [
+$animals = array(
     1 => 'корова',
     2 => 'коза',
     'qwert' => 'верблюд'
-];
+);
 
 function printParagrah($arrayString, $flag = false)
 {
     $resultString = "";
-
-    foreach ($arrayString as $value) {
-        if ($flag) {
-            $resultString .= $value . ' ';
-        } else {
-            echo '<p>' . $value . '</p>';
-        }
-    }
-
     if ($flag) {
+        $resultString = implode(' ', $arrayString);
         return $resultString;
+    } else {
+        $resultString = implode('</p><p>', $arrayString);
+        echo '<p>' . $resultString . '</p>';
     }
 }
 
@@ -49,7 +44,7 @@ echo printParagrah($animals, true);
 Функция должна обрабатывать любой ввод, в том числе некорректный и выдавать сообщения об этом
 */
 
-$operands = [10, 2, 5];
+$operands = array(10, 2, 5);
 
 
 function applyOperation($arrayOperands, $functionForApply)
@@ -78,8 +73,6 @@ function applyOperation($arrayOperands, $functionForApply)
 
 function mathOperation($arrayOperands, $operation)
 {
-
-
     switch ($operation) {
         case '+':
             echo(applyOperation($arrayOperands, function ($arg1, $arg2) {
@@ -111,6 +104,7 @@ function mathOperation($arrayOperands, $operation)
     }
 }
 
+
 mathOperation($operands, '/');
 echo '<br>';
 
@@ -136,6 +130,7 @@ function mathOperationPlus($operand)
 }
 
 mathOperationPlus('+', 2, 5, 10);
+echo '<br>';
 
 /*
 Задание #4
@@ -147,31 +142,33 @@ mathOperationPlus('+', 2, 5, 10);
 
 function showTableMultiplication($param1, $param2)
 {
-    try {
-        if (!(is_int($param1) and is_int($param2))) {
-            throw new Exception('ошибка параметр не целое число');
-            return;
-        }
-        echo '<table style="border: dotted 2px black">';
-        for ($i = 1; $i <= $param1; $i++) {
-            echo "<tr> ";
-            for ($j = 1; $j <= $param2; $j++) {
-                if ($i == 1) {
-                    echo '<th>' . $j . '</th>';
-                } else {
-                    $amount = $i * $j;
-                    echo '<td>' . $amount . '</td>';
-                }
-            }
-            echo "</tr>";
-        }
-        echo "</table>";
-    } catch (Exception $e) {
-        echo "Во время работы произошла ошибка подробнее: " . $e->getMessage() . '<br>';
+
+    if (!(is_int($param1) and is_int($param2))) {
+        throw new Exception('ошибка параметр не целое число');
+        return;
     }
+    echo '<table style="border: dotted 2px black">';
+    for ($i = 1; $i <= $param1; $i++) {
+        echo "<tr> ";
+        for ($j = 1; $j <= $param2; $j++) {
+            if ($i == 1) {
+                echo '<th>' . $j . '</th>';
+            } else {
+                $amount = $i * $j;
+                echo '<td>' . $amount . '</td>';
+            }
+        }
+        echo "</tr>";
+    }
+    echo "</table>";
+
 }
 
-showTableMultiplication(10.12, 20);
+try {
+    showTableMultiplication(10.12, 20);
+} catch (Exception $e) {
+    echo "Во время работы произошла ошибка подробнее: " . $e->getMessage() . '<br>';
+}
 
 /*Задание #5
 
@@ -192,6 +189,7 @@ function mb_strrev($str)
 
 function is_polindrom($strLine)
 {
+    $strLine = mb_strtolower($strLine);
     $strReverse = mb_strrev($strLine);
     if ($strLine === $strReverse) {
         return true;
@@ -212,6 +210,21 @@ function speakOnRussian($flag)
 
 speakOnRussian(is_polindrom('йцуккуцй'));
 
+/*Задание #6 (выполняется после вебинара “ВСТРОЕННЫЕ ВОЗМОЖНОСТИ ЯЗЫКА”)
+
+Выведите информацию о текущей дате в формате 31.12.2016 23:59
+Выведите unixtime время соответствующее 24.02.2016 00:00:00.
+*/
+$date = date('d.m.Y H:i');
+echo($date.'<br>');
+$date2 = date_parse_from_format("d.m.Y", '24.02.2016 00:00:00');
+
+$unixTime = mktime($date2['hour'], $date2['minute'], $date2['second'], $date2['month'], $date2['day'], $date2['year']);
+echo $unixTime.'<br>';
+
+
+
+
 /*Задание #7 (выполняется после вебинара “ВСТРОЕННЫЕ ВОЗМОЖНОСТИ ЯЗЫКА”)
 Дана строка: “Карл у Клары украл Кораллы”. удалить из этой строки все заглавные буквы “К”.
 Дана строка “Две бутылки лимонада”. Заменить “Две”, на “Три”. По желанию дополнить задание.
@@ -231,6 +244,8 @@ echo $string2 . '<br>';
 Если кол-во пакетов более 1000, то выдавать сообщение: “Сеть есть”
 Если в переданной в функцию строке есть “:)”, то нарисовать смайл в ASCII и не выдавать сообщение из пункта №3. Смайл должен храниться в отдельной функции
 */
+$stringRX = 'RX packets:950381 errors:0 dropped:0 overruns:0 frame:0. :)';
+
 function viewSmile()
 {
     echo '<br>
@@ -260,21 +275,7 @@ function viewSmile()
 
 echo is_polindrom('фвфывфывфыв');
 
-/*Задание #6 (выполняется после вебинара “ВСТРОЕННЫЕ ВОЗМОЖНОСТИ ЯЗЫКА”)
 
-Выведите информацию о текущей дате в формате 31.12.2016 23:59
-Выведите unixtime время соответствующее 24.02.2016 00:00:00.
-*/ 
-$date = date('d.m.Y H:i');
-echo($date);
-$date2 = date_parse_from_format("d.m.Y", '24.02.2016 00:00:00');
-
-var_dump($date2);
-mktime($date2['year']);
-
-
-
-$stringRX = 'RX packets:950381 errors:0 dropped:0 overruns:0 frame:0. :)';
 
 
 function getRX($stringRX)
@@ -289,11 +290,31 @@ function getRX($stringRX)
         }
     }
 }
+
 getRX($stringRX);
 
 
+/*Задание #9 (выполняется после вебинара “ВСТРОЕННЫЕ ВОЗМОЖНОСТИ ЯЗЫКА”)
 
+Создайте средствами ОС файл test.txt и поместите в него текст “Hello, world”
+Напишите функцию, которая будет принимать имя файла, открывать файл и выводить содержимое на экран.
+*/
 
+function showFile($fileName)
+{
+    $stringFile = file_get_contents($fileName);
+    echo $stringFile;
+}
+
+showFile('test.txt');
+
+/*
+Задание #10 (выполняется после вебинара “ВСТРОЕННЫЕ ВОЗМОЖНОСТИ ЯЗЫКА”)
+
+Создайте файл anothertest.txt средствами PHP. Поместите в него текст - “Hello again!”
+*/
+
+file_put_contents('anothertest.txt', 'Hello again');
 
 
 
