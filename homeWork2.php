@@ -258,6 +258,22 @@ function viewSmile()
 ░░████████████░░░█████████████████<br>';
 }
 
+echo is_polindrom('фвфывфывфыв');
+
+/*Задание #6 (выполняется после вебинара “ВСТРОЕННЫЕ ВОЗМОЖНОСТИ ЯЗЫКА”)
+
+Выведите информацию о текущей дате в формате 31.12.2016 23:59
+Выведите unixtime время соответствующее 24.02.2016 00:00:00.
+*/ 
+$date = date('d.m.Y H:i');
+echo($date);
+$date2 = date_parse_from_format("d.m.Y", '24.02.2016 00:00:00');
+
+var_dump($date2);
+mktime($date2['year']);
+
+
+
 $stringRX = 'RX packets:950381 errors:0 dropped:0 overruns:0 frame:0. :)';
 
 
